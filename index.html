@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Placeholder Image</title>
+
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+
+    <!-- font-awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Toastify CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <!-- Placeholder Image Script -->
+    <script>
+        const defaultPlaceholderSettings = {
+            width: 100,
+            height: 100,
+            bgColor: '#f0f0f0',
+            fgColor: '#000000',
+            text: 'Placeholder Image',
+            fontSize: 16,
+            fontWeight: 'normal',
+            fontStyle: 'normal',
+            fontFamily: 'Arial',
+            iconUrl: "https://rubenlopes.uk/logo-small.png",
+            iconSize: 100
+        };
+    </script>
+    <script src="src/placeholder.js"></script>
+
+    <style>
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 160px;
+            width: 160px;
+            background-color: #f7fafc;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-0 left-0 w-full bg-indigo-900 text-white inset-0 duration-75 opacity-100 transition-all bg-opacity-75 
+        [background-image:linear-gradient(to_right,_rgba(255,255,255,0.1)_1px,_transparent_1px),_linear-gradient(to_bottom,_rgba(255,255,255,0.1)_1px,_transparent_1px)] 
+        [background-size:20px_20px] dark:[background-image:linear-gradient(to_right,_rgba(255,255,255,0.05)_1px,_transparent_1px),_linear-gradient(to_bottom,_rgba(255,255,255,0.05)_1px,_transparent_1px)] 
+        dark:[background-size:25px_25px]">
+
+    <!-- Page Container -->
+    <div class="max-w-6xl mx-auto px-6 py-12 relative">
+
+        <!-- Header Section -->
+        <header class="text-center mb-12">
+            <i class="fas fa-image text-9xl text-indigo-900 hover:text-indigo-700 transition-all hover:scale-110 duration-75 mb-4 hover:rotate-12 cursor-pointer"
+            ></i>
+            <h1 class="text-5xl font-extrabold text-indigo-900">Dynamic Placeholder Image Generator</h1>
+            <p class="mt-4 text-lg text-indigo-200">Create custom placeholder images with ease!</p>
+        </header>
+
+        <!-- Instructions Section -->
+        <div class="bg-white p-8 shadow-lg mb-12 rounded-2xl ring-2 ring-purple-500 pb-10">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">How to Use</h2>
+            <p class="text-gray-500 mb-6">
+                This script generates a placeholder image for broken or empty image sources. You can customise the placeholder image by changing the settings in the script below.
+            </p>
+
+            <div class="bg-[#272822] p-4 rounded-xl shadow-sm ring-2 ring-purple-500">
+                <button id="copyButton" class="gap-2 bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-75 ring-2 ring-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900"
+                    onclick="navigator.clipboard.writeText(document.querySelector('pre code').innerText).then(() => {
+                        Toastify({
+                            text: 'Code Copied!',
+                            duration: 3000,
+                            gravity: 'top',
+                            position: 'right',
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            stopOnFocus: true,
+                        }).showToast();
+                    })">
+                    <i class="fas fa-copy"></i> Copy Code
+                </button>
+
+                <pre class="">
+                    <code class="language-javascript bg-opacity-75">
+&lt;script&gt;
+const defaultPlaceholderSettings = {
+    width: 100,
+    height: 100,
+    bgColor: '#f0f0f0',
+    fgColor: '#000000',
+    text: 'Placeholder Image',
+    fontSize: 16,
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    fontFamily: 'Arial',
+    iconUrl: "https://rubenlopes.uk/logo-small.png",
+    iconSize: 100
+};
+&lt;/script&gt;
+&lt;script src="src/placeholder.js"&gt;&lt;/script&gt;
+                    </code>
+                </pre>
+            </div>
+        </div>
+
+        <!-- Image Display Section -->
+        <h2 class="text-4xl font-extrabold  text-indigo-900 mb-8">Generated Placeholder Image Test</h2>
+        <div id="placeholder-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Broken Image -->
+            <div class="p-6 rounded-lg shadow-lg hover:shadow-xl transition-all flex flex-col items-center bg-opacity-75 backdrop-opacity-60 backdrop-blur-md bg-gray-900 text-white">
+                <h3 class="text-lg font-semibold text-gray-200 mb-2">Broken Image</h3>
+                <p class="text-gray-500  mb-4">This image has a broken src and should be replaced by a placeholder image.</p>
+                <div class="relative w-40 h-40 rounded-md overflow-hidden border border-gray-300">
+                    <img src="https://via.as.com/150" alt="Placeholder Image 1" class="w-full h-full object-cover" onload="hideSpinner(this)">
+                    <div class="loading absolute inset-0 flex items-center justify-center">
+                        <div class="spinner-border animate-spin border-t-2 border-blue-600 w-8 h-8 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real Image -->
+            <div class="p-6 rounded-lg shadow-lg hover:shadow-xl transition-all flex flex-col items-center bg-opacity-75 backdrop-opacity-60 backdrop-blur-md bg-gray-900 text-white">
+                <h3 class="text-lg font-semibold text-gray-200 mb-2">Real Image</h3>
+                <p class="text-gray-500  mb-4">This is a real image that should not be replaced by a placeholder.</p>
+                <div class="relative w-40 h-40 rounded-md overflow-hidden border border-gray-300">
+                    <img src="https://www.w3schools.com/html/pic_trulli.jpg" alt="Real Image" class="w-full h-full object-cover" onload="hideSpinner(this)">
+                    <div class="loading absolute inset-0 flex items-center justify-center">
+                        <div class="spinner-border animate-spin border-t-2 border-blue-600 w-8 h-8 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty src Image (Larger size) -->
+            <div class="p-6 rounded-lg shadow-lg hover:shadow-xl transition-all flex flex-col items-center bg-opacity-75 backdrop-opacity-60 backdrop-blur-md bg-gray-900 text-white">
+                <h3 class="text-lg font-semibold text-gray-200 mb-2">Empty src Image (Large)</h3>
+                <p class="text-gray-500  mb-4">This image has an empty src and should be replaced by a placeholder image.</p>
+                <div class="relative w-80 h-40 rounded-md overflow-hidden border border-gray-300">
+                    <img src="" alt="Placeholder Image" class="w-full h-full object-cover" onload="hideSpinner(this)">
+                    <div class="loading absolute inset-0 flex items-center justify-center">
+                        <div class="spinner-border animate-spin border-t-2 border-blue-600 w-8 h-8 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Empty src Images -->
+            <div class="p-6 rounded-lg shadow-lg hover:shadow-xl transition-all flex flex-col items-center bg-opacity-75 backdrop-opacity-60 backdrop-blur-md bg-gray-900 text-white">
+                <h3 class="text-lg font-semibold text-gray-200 mb-2">Empty src Image</h3>
+                <p class="text-gray-500  mb-4">This image has an empty src and should be replaced by a placeholder image.</p>
+                <div class="relative w-40 h-40 rounded-md overflow-hidden border border-gray-300">
+                    <img src="" alt="Placeholder Image" class="w-full h-full object-cover" onload="hideSpinner(this)">
+                    <div class="loading absolute inset-0 flex items-center justify-center">
+                        <div class="spinner-border animate-spin border-t-2 border-blue-600 w-8 h-8 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 rounded-lg shadow-lg hover:shadow-xl transition-all flex flex-col items-center bg-opacity-75 backdrop-opacity-60 backdrop-blur-md bg-gray-900 text-white">
+                <h3 class="text-lg font-semibold text-gray-200 mb-2">Empty src Image (Large)</h3>
+                <p class="text-gray-500  mb-4">This image has an empty src and should be replaced by a placeholder image.</p>
+                <div class="relative w-80 h-80 rounded-md overflow-hidden border border-gray-300">
+                    <img src="" alt="Placeholder Image" class="w-full h-full object-cover" onload="hideSpinner(this)">
+                    <div class="loading absolute inset-0 flex items-center justify-center">
+                        <div class="spinner-border animate-spin border-t-2 border-blue-600 w-8 h-8 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // Function to hide the spinner once the image is loaded
+        function hideSpinner(img) {
+            const spinner = img.parentElement.querySelector('.loading');
+            if (spinner) {
+                spinner.style.display = 'none';
+            }
+        }
+    </script>
+    <footer class="bg-gray-800 text-white text-center py-4">
+        <p>&copy; 2025 Ruben Lopes. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
